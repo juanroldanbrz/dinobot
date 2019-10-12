@@ -9,7 +9,8 @@ while True:
     i = 2
     img = ImageGrab.grab(bbox=screen_template.to_tuple())  # x, y, x2, y2
     img_np = np.array(img)
-    resized = utils.resize_to_rectangle(img_np, screen_template)
+    gray = utils.to_gray(img_np)
+    resized = utils.resize_to_rectangle(gray, screen_template)
     cv2.imshow("frame", resized)
     key = cv2.waitKey(1)
     if key == 27:
