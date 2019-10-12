@@ -16,7 +16,6 @@ def find_enemies(full_gray_np) -> List[Rectangle]:
     assert_gray_img(full_gray_np)
 
     roi_gray_np = utils.crop_image(full_gray_np, enemy_segment_template)
-    cv2.imshow('roi_gray_np', roi_gray_np)
 
     _, mask = cv2.threshold(roi_gray_np, 200, 240, cv2.THRESH_BINARY_INV)
 

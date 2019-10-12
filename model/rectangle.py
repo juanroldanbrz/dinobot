@@ -20,6 +20,9 @@ class Rectangle:
     def shape(self):
         return self.height(), self.width()
 
+    def area(self):
+        return self.width() * self.height()
+
     def relativize_from(self, rectangle):
         return Rectangle(self.x1 + rectangle.x1,
                          self.y1 + rectangle.y1,
