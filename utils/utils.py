@@ -19,7 +19,7 @@ def resize_to_rectangle(img_np, rectangle):
 
 def display_rectangle(img_np, rectangle):
     points = rectangle.to_points()
-    cv2.rectangle(img_np, points[0], points[1], color=255)
+    cv2.rectangle(img_np, points[0], points[1], color=0)
 
 
 def to_gray(img_np):
