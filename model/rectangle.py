@@ -28,3 +28,9 @@ class Rectangle:
                          self.y1 + rectangle.y1,
                          self.x2 + rectangle.x1,
                          self.y2 + rectangle.y1)
+
+    def relativize_to(self, rectangle):
+        return Rectangle(self.x1 - rectangle.x1,
+                         self.y1 - rectangle.y1,
+                         self.x2 - rectangle.x1,
+                         self.y2 - rectangle.y1)
