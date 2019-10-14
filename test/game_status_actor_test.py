@@ -3,7 +3,7 @@ import unittest
 import cv2
 import numpy as np
 
-from actor.game_status_actor import GameStatusActor
+from actor.game_status import GameStatusActor
 from model.message import Message
 from utils import utils
 

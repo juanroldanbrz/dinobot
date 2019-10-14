@@ -5,7 +5,7 @@ import numpy as np
 
 from actor.decision_actor import DecisionActor
 from actor.dino_detector_actor import DinoDetectorActor
-from actor.enemy_detector_actor import EnemyDetectorActor
+from actor.enemy_detector import EnemyDetectorActor
 from model.message import Message
 from template.template import enemy_segment_template
 from utils import utils

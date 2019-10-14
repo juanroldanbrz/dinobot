@@ -3,9 +3,10 @@ import cv2
 import pyscreenshot as ImageGrab
 
 from actor.dino_detector_actor import DinoDetectorActor
-from actor.enemy_detector_actor import EnemyDetectorActor
-from actor.game_actor import GameActor
-from actor.game_status_actor import GameStatusActor
+from actor.enemy_detector import EnemyDetectorActor
+from actor.game_actor import GameSimulation
+from actor.game_status import GameStatusActor
+from service import model_manager
 from model.message import Message
 from template.template import screen_template, enemy_segment_template
 from utils import utils
@@ -14,7 +15,8 @@ game_status_actor = GameStatusActor()
 enemy_detector = EnemyDetectorActor()
 dino_detector = DinoDetectorActor()
 
-game_actor = GameActor(game_status_actor)
+model = model_manager.get_next_model('test_model.csv')
+game_actor = GameSimulation(model, game_status_actor)
 
 while True:
     img = ImageGrab.grab(bbox=screen_template.to_tuple())
@@ -30,9 +32,7 @@ while True:
     game_status_actor.tell(msg)
 
 
-    status = game_status_actor.ask('game_status')
-
-    cv2.putText(img_np, status, (10, 10), cv2.FONT_HERSHEY_SIMPLEX, 0.5, 255)
+    # cv2.putText(img_np, status, (10, 10), cv2.FONT_HERSHEY_SIMPLEX, 0.5, 255)
 
     enemies = enemy_detector.ask('enemies')
     for enemy in enemies:

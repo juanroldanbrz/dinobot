@@ -3,8 +3,8 @@ import cv2
 import pyscreenshot as ImageGrab
 
 from actor.dino_detector_actor import DinoDetectorActor
-from actor.enemy_detector_actor import EnemyDetectorActor
-from actor.game_status_actor import GameStatusActor
+from actor.enemy_detector import EnemyDetectorActor
+from actor.game_status import GameStatusActor
 from model.message import Message
 from template.template import screen_template, enemy_segment_template
 from utils import utils

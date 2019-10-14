@@ -3,7 +3,6 @@ from typing import List
 import cv2
 import numpy as np
 
-from model.actor import Actor
 from model.rectangle import Rectangle
 from template.template import screen_template, enemy_segment_template
 from utils import utils
@@ -30,20 +29,6 @@ def find_enemies(full_gray_np) -> List[Rectangle]:
     for cnt in contours:
         x, y, w, h = cv2.boundingRect(cnt)
         rectangle = Rectangle(x, y, x + w, y + h)
-        rectangle = rectangle.relativize_from(enemy_segment_template)
         to_return.append(rectangle)
 
-    return to_return
-
-
-class EnemyDetectorActor(Actor):
-    def __init__(self):
-        self.enemies = []
-
-    def tell(self, message):
-        if message.message_type == 'detect_enemy':
-            self.enemies = find_enemies(message.content)
-
-    def ask(self, message_type: str):
-        if message_type == 'enemies':
-            return self.enemies
+    return rectangle, enemy_segment_template.shape()

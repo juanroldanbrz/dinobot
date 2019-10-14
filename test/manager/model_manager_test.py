@@ -1,6 +1,6 @@
 import unittest
 
-from learning_model.model_manager import ModelManager
+from service.model_manager import ModelManager
 
 model_manager = ModelManager()
 

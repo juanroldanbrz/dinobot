@@ -4,8 +4,8 @@ import cv2
 import numpy as np
 
 from actor.dino_detector_actor import DinoDetectorActor
-from actor.enemy_detector_actor import EnemyDetectorActor
-from actor.game_status_actor import GameStatusActor
+from actor.enemy_detector import EnemyDetectorActor
+from actor.game_status import GameStatusActor
 from model.message import Message
 from utils import utils
 
