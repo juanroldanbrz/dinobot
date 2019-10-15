@@ -1,4 +1,4 @@
-from typing import List
+from typing import List, Tuple, Any
 
 import cv2
 import numpy as np
@@ -9,7 +9,7 @@ from utils import utils
 from utils.assertions import assert_rectangle_shape, assert_gray_img
 
 
-def find_enemies(full_gray_np) -> List[Rectangle]:
+def find_enemies(full_gray_np) -> Tuple[List[Rectangle], Any]:
     # Assert
     assert_rectangle_shape(full_gray_np, screen_template, f'Shape of the image should be {screen_template.shape()}')
     assert_gray_img(full_gray_np)
@@ -31,4 +31,4 @@ def find_enemies(full_gray_np) -> List[Rectangle]:
         rectangle = Rectangle(x, y, x + w, y + h)
         to_return.append(rectangle)
 
-    return rectangle, enemy_segment_template.shape()
+    return to_return, enemy_segment_template.shape()

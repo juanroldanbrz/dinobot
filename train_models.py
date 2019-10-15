@@ -4,7 +4,7 @@ import pyscreenshot as ImageGrab
 
 from actor.dino_detector_actor import DinoDetectorActor
 from actor.enemy_detector import EnemyDetectorActor
-from actor.game_actor import GameSimulation
+from actor.game_simulation import GameSimulation
 from actor.game_status import GameStatusActor
 from service import model_manager
 from model.message import Message

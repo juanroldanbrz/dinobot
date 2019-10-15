@@ -6,6 +6,7 @@ from pymongo import MongoClient
 from scipy.spatial import distance
 
 from model.learning_model import LearningModel
+from model.rectangle import Rectangle
 from service.mapper import from_model_to_bxon, from_bson_to_model
 
 client = MongoClient('localhost', 27017)

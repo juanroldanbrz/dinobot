@@ -12,8 +12,6 @@ class GameSimulation:
         self.start_time = None
         self.end_time = None
 
-        self.game_status_actor = game_status_actor
-
     def start(self):
         self.status = 'playing'
         self.start_time = time.time()
