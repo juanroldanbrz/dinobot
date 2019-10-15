@@ -26,21 +26,8 @@ def find_dino(full_gray_np) -> List[Rectangle]:
     to_return = list()
 
     if len(contours) != 1:
-        return None
+        return []
     else:
         x, y, w, h = cv2.boundingRect(contours[0])
         rectangle = Rectangle(x, y, x + w, y + h)
         return rectangle.relativize_from(dino_segment_template)
-
-
-class DinoDetectorActor(Actor):
-    def __init__(self):
-        self.dino: Rectangle = None
-
-    def tell(self, message):
-        if message.message_type == 'detect_dino':
-            self.dino = find_dino(message.content)
-
-    def ask(self, message_type: str):
-        if message_type == 'dino':
-            return self.dino

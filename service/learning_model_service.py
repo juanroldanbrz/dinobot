@@ -9,7 +9,7 @@ from model.learning_model import LearningModel
 from model.rectangle import Rectangle
 from service.mapper import from_model_to_bxon, from_bson_to_model
 
-client = MongoClient('localhost', 27017)
+client = MongoClient('localhost', 27017, connecttimeoutms=1000)
 db = client.dino_game_db
 collection = db.learning_model
 
@@ -39,8 +39,9 @@ def generate_models(num_models: int) -> List[LearningModel]:
 
 
 def test_model(model: LearningModel, enemies_rectangle: List[Rectangle], img_shape):
-    if len(enemies_rectangle) == 0:
-        raise AssertionError('No enemies')
+    if len(enemies_rectangle) == \
+            0:
+        return 0
 
     enemies_rectangle.sort(key=lambda x: x.x1)
     enemy_rectangle = enemies_rectangle[0]
@@ -53,5 +54,7 @@ def test_model(model: LearningModel, enemies_rectangle: List[Rectangle], img_sha
     x1 = distance.euclidean(p_bot_left_img, p_top_left) / total_distance
     x2 = distance.euclidean(p_bot_left_img, p_top_right) / total_distance
 
-    x_vector = np.array(x1, x2).reshape(1, 2)
-    return model.apply(x_vector)
+    x_vector = np.array([[x1, x2]])
+    to_return = model.apply(x_vector)
+    print(f'Model {model.model_id} calculated {to_return}')
+    return to_return

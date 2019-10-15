@@ -14,8 +14,9 @@ class LearningModel:
 
     def apply(self, x_vector: [float]):
         x = np.array(x_vector).reshape(1, 2)
-        w = np.array(self.w_vector).reshape(1, 2)
+        w = np.array([self.w_vector])
 
-        product = x_vector * self.w_vector + self.d
+        product = x * w + self.d
         average = np.sum(product, axis=1) / x_vector.shape[1]
         return np.tan(average).ravel()
+

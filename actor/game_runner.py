@@ -1,25 +1,46 @@
+import time
+
 import pyautogui
 
 from actor.game_simulation import GameSimulation
+from model.learning_model import LearningModel
+from model.rectangle import Rectangle
+from service import learning_model_service
+
+JUMP_KEY = 'space'
+DOWN_KEY = 'down'
+INIT_KEY = 'enter'
 
 
 class GameRunner:
-    def __init__(self, game_simulation: GameSimulation):
-        self.game_simulation = game_simulation
-        self.terminated = False
+    def __init__(self, model: LearningModel):
+        self.model = model
+        self.status = 'not_processed'
+
+        self.start_time = None
+        self.end_time = None
 
     def start(self):
-        pyautogui.press('enter')
-        self.game_simulation.start()
+        print('Starting game')
+        self.start_time = time.time()
+        pyautogui.press(INIT_KEY)
+        self.status = 'playing'
 
-    def play(self, full_gray_np):
-        result = self.game_simulation.play(full_gray_np)
-        if result == 'jump':
-            pyautogui.press('space')
-        elif result == 'down':
-            pyautogui.press('down')
-        elif result == 'terminate':
-            self.terminated = True
+    def play(self, enemies: [Rectangle], roi_shape):
+        result = learning_model_service.test_model(self.model, enemies, roi_shape)
+        if result >= 0.5:
+            pyautogui.press(JUMP_KEY)
+            print('jumping')
+        elif result <= - 0.5:
+            pyautogui.press(DOWN_KEY)
+            print('down')
+        else:
+            print('Continuing')
+
+    def terminate(self):
+        self.end_time = time.time()
+        self.status = 'terminated'
+        print('Terminated')
 
     def get_score(self):
-        return self.game_simulation.end_time - self.game_simulation.start_time
+        return self.end_time - self.start_time

@@ -16,6 +16,7 @@ def from_bson_to_model(bson):
     w_vector = bson['w_vector']
     d = bson['d']
 
-    model = LearningModel(model_id, w_vector, d)
+    model = LearningModel(w_vector, d, model_id)
     model.processed = processed
     return model
+
