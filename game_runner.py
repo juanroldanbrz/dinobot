@@ -21,7 +21,6 @@ img = ImageGrab.grab(bbox=screen_template.to_tuple(), childprocess=False)
 img_np = np.array(img)
 cv2.imshow('game', img_np)
 
-sleep(4)
 print('check')
 game_runner.start()
 

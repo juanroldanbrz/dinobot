@@ -23,16 +23,16 @@ class GameRunner:
     def start(self):
         print('Starting game')
         self.start_time = time.time()
-        pyautogui.press(INIT_KEY)
+        #pyautogui.press(INIT_KEY)
         self.status = 'playing'
 
     def play(self, enemies: [Rectangle], roi_shape):
         result = learning_model_service.test_model(self.model, enemies, roi_shape)
         if result >= 0.5:
-            pyautogui.press(JUMP_KEY)
+            #pyautogui.press(JUMP_KEY)
             print('jumping')
         elif result <= - 0.5:
-            pyautogui.press(DOWN_KEY)
+            #pyautogui.press(DOWN_KEY)
             print('down')
         else:
             print('Continuing')
