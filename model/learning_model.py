@@ -16,7 +16,7 @@ class LearningModel:
         self.generation = None
 
     def apply(self, x_vector: [float]):
-        x = np.array(x_vector).reshape(1, 2)
+        x = np.array(x_vector).reshape(1, 3)
         w = np.array([self.w_vector])
 
         product = x * w + self.d

@@ -42,21 +42,21 @@ def generate_models(num_models: int, specie='a', generation=1) -> List[LearningM
         if specie == 'a':
             w_vector = list(i for i in (np.random.uniform(-2, 2, size)).flatten())
             d = random.randrange(-3, 3)
-            model = LearningModel(w_vector, d, specie)
+            model = LearningModel(w_vector, d)
             model.specie = specie
             model.generation = generation
             to_return.append(model)
         elif specie == 'b':
             w_vector = list(i for i in (np.random.uniform(-5, 5, size)).flatten())
             d = random.randrange(-1, 1)
-            model = LearningModel(w_vector, d, specie)
+            model = LearningModel(w_vector, d)
             model.specie = specie
             model.generation = generation
             to_return.append(model)
         elif specie == 'c_rare':
             w_vector = list(i for i in (np.random.uniform(-10, 10, size)).flatten())
             d = random.randrange(-10, 10)
-            model = LearningModel(w_vector, d, specie)
+            model = LearningModel(w_vector, d)
             model.specie = specie
             model.generation = generation
             to_return.append(model)

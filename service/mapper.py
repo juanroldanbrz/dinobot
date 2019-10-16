@@ -20,7 +20,7 @@ def from_bson_to_model(bson):
     specie = bson['specie']
     generation = bson['generation']
 
-    model = LearningModel(w_vector, d, model_id)
+    model = LearningModel(w_vector, d)
     model.specie = specie
     model.generation = generation
     model.processed = processed

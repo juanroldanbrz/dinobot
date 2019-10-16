@@ -35,7 +35,7 @@ while True:
     for enemy in enemies:
         utils.display_rectangle(full_gray_np, enemy.relativize_from(enemy_segment_template))
 
-    cv2.imshow('game', full_gray_np)
+    cv2.imshow('game2', full_gray_np)
     cv2.waitKey(1)
 
     if game_status_str == 'game_over':
