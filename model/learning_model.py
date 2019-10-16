@@ -12,6 +12,9 @@ class LearningModel:
         self.score = None
         self.processed = False
 
+        self.specie = None
+        self.generation = None
+
     def apply(self, x_vector: [float]):
         x = np.array(x_vector).reshape(1, 2)
         w = np.array([self.w_vector])
