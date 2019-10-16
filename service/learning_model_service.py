@@ -29,11 +29,15 @@ def find_one(processed=False) -> LearningModel:
     return from_bson_to_model(bson)
 
 
+def update_score(model_id: str, score):
+    collection.update({'model_id': model_id}, {"$set": {"score": score, "processed": True}}, upsert=False)
+
+
 def generate_models(num_models: int) -> List[LearningModel]:
     to_return = list()
     for i in range(0, num_models):
         w_vector = list(i for i in (np.random.rand(1, 2) + 1).flatten())
-        d = random.randint(-5, 5)
+        d = random.rand(-5, 5)
         to_return.append(LearningModel(w_vector, d))
     return to_return
 
