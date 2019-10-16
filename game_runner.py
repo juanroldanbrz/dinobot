@@ -23,9 +23,6 @@ while True:
     img_np = utils.resize_to_rectangle(img_np, screen_template)
     full_gray_np = utils.to_gray(img_np)
 
-    cv2.imshow('game2', full_gray_np)
-    cv2.waitKey(1)
-
     # Detect enemies
     enemies, _ = enemy_detector.find_enemies(utils.to_gray(img_np))
     status = f'{game_runner.status} - w:{model.w_vector}, d:{model.d}, specie:{model.specie}'
@@ -37,6 +34,9 @@ while True:
 
     for enemy in enemies:
         utils.display_rectangle(full_gray_np, enemy.relativize_from(enemy_segment_template))
+
+    cv2.imshow('game2', full_gray_np)
+    cv2.waitKey(1)
 
     if game_status_str == 'game_over':
         game_runner.terminate()

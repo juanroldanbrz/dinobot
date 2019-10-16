@@ -1,8 +1,7 @@
 from model.learning_model import LearningModel
 
 
-def
-    (learning_model: LearningModel):
+def from_model_to_bson(learning_model: LearningModel):
     return {
         'model_id': learning_model.model_id,
         'processed': learning_model.processed,
