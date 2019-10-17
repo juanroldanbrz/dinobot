@@ -5,6 +5,9 @@ from service import learning_model_service
 
 
 class ModelManagerTest(unittest.TestCase):
+    def test_get_last_generation(self):
+        learning_model_service.get_last_generation()
+
     def test_generate_models(self):
         models = []
         models = models + learning_model_service.generate_models(200, 'a')

@@ -85,6 +85,23 @@ def _reproduce(models: List[LearningModel]):
         return list(set_return)[:limit]
 
 
+def create_generation_report(gen: int):
+    models = learning_model_service.find_all(processed=True, generation=gen)
+    if len(models) == 0:
+        raise AssertionError(f'no models for generation {gen}')
+    models.sort(key=lambda x: x.score, reverse=True)
+    best_model = models[0]
+    models_top_5_average = sum(list(map(lambda x: x.score, models[:5]))) / 5.0
+    models_top_5_score = list(map(lambda x: x.score, models[:5]))
+
+    f = open(f'generation_{gen}.txt', 'w')
+    f.write(f'Generation: {gen}')
+    f.write(f'Best model score: {best_model.score}')
+    f.write(f'Top 5 models score: {str(models_top_5_score)}')
+    f.write(f'Top 5 average: {str(models_top_5_average)}')
+    f.close()
+
+
 def create_model(w_array, d):
     w_array_mut = [i for i in w_array.ravel()]
     model = LearningModel(w_array_mut, d)

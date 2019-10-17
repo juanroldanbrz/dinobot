@@ -39,6 +39,16 @@ def update_score(model_id: str, score):
     collection.update({'model_id': model_id}, {"$set": {"score": score, "processed": True}}, upsert=False)
 
 
+def get_last_generation():
+    generations = list(collection.distinct('generation'))
+    generations.sort(reverse=True)
+    return generations[0]
+
+
+def count_non_processed(generation: int):
+    return len(find_all(processed=False, generation=generation))
+
+
 def generate_models(num_models: int, specie='a', generation=1) -> List[LearningModel]:
     to_return = list()
     size = (1, 3)
@@ -66,14 +76,6 @@ def generate_models(num_models: int, specie='a', generation=1) -> List[LearningM
     return to_return
 
 
-def get_angle(p1, p2):
-    deltax = p2[0] - p1[0] * 1.0
-    deltay = p1[1] - p2[1] * 1.0
-
-    angle_rad = math.atan2(deltay, deltax)
-    return angle_rad * 180.0 / math.pi
-
-
 def test_model(model: LearningModel, enemies_rectangle: List[Rectangle], img_shape):
     if len(enemies_rectangle) == \
             0:
@@ -91,9 +93,17 @@ def test_model(model: LearningModel, enemies_rectangle: List[Rectangle], img_sha
 
     x1 = distance.euclidean(p_bot_left_img, p_top_left) / total_distance
     x2 = distance.euclidean(p_bot_left_img, p_top_right) / total_distance
-    x3 = (get_angle(p_bot_left_img, p_bot_left) / 90) + 1
+    x3 = (_get_angle(p_bot_left_img, p_bot_left) / 90) + 1
 
     x_vector = np.array([[x1, x2, x3]])
     to_return = model.apply(x_vector)
     print(f'Model {model.model_id} calculated {to_return}')
     return to_return
+
+
+def _get_angle(p1, p2):
+    deltax = p2[0] - p1[0] * 1.0
+    deltay = p1[1] - p2[1] * 1.0
+
+    angle_rad = math.atan2(deltay, deltax)
+    return angle_rad * 180.0 / math.pi

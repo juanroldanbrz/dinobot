@@ -6,13 +6,16 @@ import pyscreenshot as ImageGrab
 
 from actor import enemy_detector, dino_detector_actor, game_status
 from actor.game_runner import GameRunner
-from service import learning_model_service
+from service import learning_model_service, generation_service
 from service.learning_model_service import update_score
 from template.template import screen_template, enemy_segment_template
 from utils import utils
 
-d = np.random.random(1)
-model = learning_model_service.find_one(processed=False, generation=2)
+
+generation = learning_model_service.get_last_generation()
+print('------------')
+print(f'Starting generation {generation}')
+model = learning_model_service.find_one(processed=False, generation=generation)
 game_runner = GameRunner(model)
 print(f'Loading model: {model.model_id}')
 game_runner.start()
@@ -30,12 +33,6 @@ while True:
     game_runner.play(enemies, enemy_segment_template.shape())
     game_status_str = game_status.get_game_status(utils.to_gray(img_np))
 
-    cv2.putText(full_gray_np, status, (10, 10), cv2.FONT_HERSHEY_SIMPLEX, 0.5, 0)
-
-    for enemy in enemies:
-        utils.display_rectangle(full_gray_np, enemy.relativize_from(enemy_segment_template))
-
-    cv2.imshow('game2', full_gray_np)
     cv2.waitKey(1)
 
     if game_status_str == 'game_over':
@@ -43,7 +40,14 @@ while True:
         print(f'elapsed: {game_runner.get_score()}')
         update_score(model.model_id, game_runner.get_score())
 
-        model = learning_model_service.find_one()
+        if learning_model_service.count_non_processed(generation) == 0:
+            print('-----------')
+            print(f'Generation {generation} finished. Creating generation {generation + 1}')
+            generation_service.create_generation_report(generation)
+            generation_service.reproduce_generation(generation)
+            generation = generation + 1
+
+        model = learning_model_service.find_one(processed=False, generation=generation)
         game_runner = GameRunner(model)
         print(f'Loading model: {model.model_id}')
         game_runner.start()
