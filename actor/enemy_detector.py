@@ -21,7 +21,6 @@ def find_enemies(full_gray_np) -> Tuple[List[Rectangle], Any]:
     opening = cv2.morphologyEx(mask, cv2.MORPH_OPEN, kernel)
     kernel = np.ones((5, 5), np.uint8)
     dilation = cv2.dilate(opening, kernel)
-
     _, contours, _ = cv2.findContours(dilation, cv2.RETR_TREE, cv2.CHAIN_APPROX_NONE)
 
     to_return = list()

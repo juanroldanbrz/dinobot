@@ -77,8 +77,7 @@ def generate_models(num_models: int, specie='a', generation=1) -> List[LearningM
 
 
 def test_model(model: LearningModel, enemies_rectangle: List[Rectangle], img_shape):
-    if len(enemies_rectangle) == \
-            0:
+    if len(enemies_rectangle) == 0:
         return 0
 
     p_bot_left_img = (0, img_shape[0])
@@ -97,7 +96,6 @@ def test_model(model: LearningModel, enemies_rectangle: List[Rectangle], img_sha
 
     x_vector = np.array([[x1, x2, x3]])
     to_return = model.apply(x_vector)
-    print(f'Model {model.model_id} calculated {to_return}')
     return to_return
 
 

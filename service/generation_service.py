@@ -94,11 +94,11 @@ def create_generation_report(gen: int):
     models_top_5_average = sum(list(map(lambda x: x.score, models[:5]))) / 5.0
     models_top_5_score = list(map(lambda x: x.score, models[:5]))
 
-    f = open(f'generation_{gen}.txt', 'w')
-    f.write(f'Generation: {gen}')
-    f.write(f'Best model score: {best_model.score}')
-    f.write(f'Top 5 models score: {str(models_top_5_score)}')
-    f.write(f'Top 5 average: {str(models_top_5_average)}')
+    f = open(f'generation_{gen}.txt\n', 'w')
+    f.write(f'Generation: {gen}\n')
+    f.write(f'Best model score: {best_model.score}\n')
+    f.write(f'Top 5 models score: {str(models_top_5_score)}\n')
+    f.write(f'Top 5 average: {str(models_top_5_average)}\n')
     f.close()
 
 
