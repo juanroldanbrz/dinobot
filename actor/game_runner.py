@@ -28,6 +28,8 @@ class GameRunner:
         self.status = 'playing'
 
     def play(self, enemies: [Rectangle], roi_shape):
+        if len(enemies) == 0:
+            return 0
         result = learning_model_service.test_model(self.model, enemies, roi_shape)
         if result >= 0.5:
             pyautogui.press(JUMP_KEY)

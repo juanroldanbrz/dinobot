@@ -35,8 +35,8 @@ def find_all(processed=False, generation=1) -> List[LearningModel]:
     return list(map(lambda x: from_bson_to_model(x), bson))
 
 
-def update_score(model_id: str, score):
-    collection.update({'model_id': model_id}, {"$set": {"score": score, "processed": True}}, upsert=False)
+def update_score(model_id: str, generation: int, score):
+    collection.update({'model_id': model_id, 'generation': generation}, {"$set": {"score": score, "processed": True}}, upsert=False)
 
 
 def get_last_generation():

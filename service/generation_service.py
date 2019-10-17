@@ -16,11 +16,11 @@ def reproduce_generation(gen_number: int):
 
     last_generation = learning_model_service.find_all(processed=True, generation=gen_number)
     last_generation.sort(key=lambda x: x.score, reverse=True)
-    top_15 = last_generation[:15]
+    top_10 = last_generation[:10]
 
-    to_return += copy.deepcopy(top_15)
-    to_return += _reproduce(top_15)
-    to_return += _mutate(top_15)
+    to_return += copy.deepcopy(top_10)
+    to_return += _reproduce(top_10)
+    to_return += _mutate(top_10)
 
     for model in to_return:
         model.generation = next_gen
