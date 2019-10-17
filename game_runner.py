@@ -23,6 +23,7 @@ while True:
     img = ImageGrab.grab(bbox=screen_template.to_tuple(), childprocess=False)
     img_np = np.array(img)
     img_np = utils.resize_to_rectangle(img_np, screen_template)
+
     full_gray_np = utils.to_gray(img_np)
 
     # Detect enemies
@@ -46,6 +47,7 @@ while True:
             generation_service.create_generation_report(generation)
             generation_service.reproduce_generation(generation)
             generation = generation + 1
+            exit(0)
 
         model = learning_model_service.find_one(processed=False, generation=generation)
         game_runner = GameRunner(model)
