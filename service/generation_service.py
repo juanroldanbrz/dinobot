@@ -12,6 +12,7 @@ from service import learning_model_service
 def reproduce_generation(gen_number: int):
     next_gen = gen_number + 1
     to_return = []
+    ids = {}
 
     last_generation = learning_model_service.find_all(processed=True, generation=gen_number)
     last_generation.sort(key=lambda x: x.score, reverse=True)
@@ -25,6 +26,11 @@ def reproduce_generation(gen_number: int):
         model.generation = next_gen
         model.processed = False
         model.score = None
+        model_id = model.model_id
+        if model_id in ids:
+            ids[model_id] = ids[model_id] + 1
+        else:
+            ids[model_id] = 1
 
     learning_model_service.insert_many(to_return)
 
@@ -81,8 +87,7 @@ def _reproduce(models: List[LearningModel]):
 
 def create_model(w_array, d):
     w_array_mut = [i for i in w_array.ravel()]
-    model_id_child = str(uuid.uuid4())
-    model = LearningModel(w_array_mut, d, model_id=model_id_child)
+    model = LearningModel(w_array_mut, d)
     model.processed = False
     return model
 
@@ -97,12 +102,4 @@ def _make_child(father, mother):
     w_child = (w_father + w_mother * 1.0) / 2
     d_child = (d_father + d_mother * 1.0) / 2
 
-    w_array_child = [i for i in w_child.ravel()]
-
-    model_id_child = str(uuid.uuid4())
-    model = LearningModel(w_array_child, d_child, model_id=model_id_child)
-    model.processed = False
-    return model
-
-
-reproduce_generation(1)
+    return create_model(w_child, d_child)
