@@ -16,7 +16,10 @@ def from_bson_to_model(bson):
     processed = bson['processed']
     w_vector = bson['w_vector']
     d = bson['d']
-    score = bson['score']
+    if processed:
+        score = bson['score']
+    else:
+        score = None
     generation = bson['generation']
 
     model = LearningModel(w_vector, d, model_id)

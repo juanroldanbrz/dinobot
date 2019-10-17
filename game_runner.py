@@ -12,7 +12,7 @@ from template.template import screen_template, enemy_segment_template
 from utils import utils
 
 d = np.random.random(1)
-model = learning_model_service.find_one()
+model = learning_model_service.find_one(processed=False, generation=2)
 game_runner = GameRunner(model)
 print(f'Loading model: {model.model_id}')
 game_runner.start()

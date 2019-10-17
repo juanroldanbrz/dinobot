@@ -9,7 +9,7 @@ class LearningModel:
         self.w_vector = w_vector
         self.d = d
 
-        self.score = None
+        self.score = 0
         self.processed = False
 
         self.generation = None
