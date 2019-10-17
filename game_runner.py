@@ -32,8 +32,6 @@ while True:
     game_runner.play(enemies, enemy_segment_template.shape())
     game_status_str = game_status.get_game_status(utils.to_gray(img_np))
 
-    cv2.waitKey(1)
-
     if game_status_str == 'game_over':
         game_runner.terminate()
         print(f'elapsed: {game_runner.get_score()}')
