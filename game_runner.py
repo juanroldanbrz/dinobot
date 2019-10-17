@@ -23,7 +23,6 @@ while True:
     img = ImageGrab.grab(bbox=screen_template.to_tuple(), childprocess=False)
     img_np = np.array(img)
     img_np = utils.resize_to_rectangle(img_np, screen_template)
-    cv2.imwrite('save.png', img_np)
     full_gray_np = utils.to_gray(img_np)
 
     # Detect enemies
