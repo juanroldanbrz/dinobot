@@ -14,7 +14,6 @@ while True:
     img_np = np.array(img)
     img_np = utils.resize_to_rectangle(img_np, screen_template)
 
-
     # Detect enemies
     enemies, _ = enemy_detector.find_enemies(utils.to_gray(img_np))
     dino = dino_detector_actor.find_dino(utils.to_gray(img_np))

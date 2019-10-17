@@ -14,10 +14,10 @@ from utils import utils
 generation = learning_model_service.get_last_generation()
 print('------------')
 print(f'Starting generation {generation}')
-# model = learning_model_service.find_one(processed=False, generation=generation)
-# game_runner = GameRunner(model)
-# print(f'Loading model: {model.model_id}')
-# game_runner.start()
+model = learning_model_service.find_one(processed=False, generation=generation)
+game_runner = GameRunner(model)
+print(f'Loading model: {model.model_id}')
+game_runner.start()
 
 while True:
     img = ImageGrab.grab(bbox=screen_template.to_tuple(), childprocess=False)
