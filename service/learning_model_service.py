@@ -25,9 +25,14 @@ def insert_many(models: List[LearningModel]):
     collection.insert_many(to_store)
 
 
-def find_one(processed=False) -> LearningModel:
-    bson = collection.find_one({"processed": processed})
+def find_one(processed=False, generation=1) -> LearningModel:
+    bson = collection.find_one({"processed": processed, 'generation': generation})
     return from_bson_to_model(bson)
+
+
+def find_all(processed=False, generation=1) -> List[LearningModel]:
+    bson = collection.find({"processed": processed, 'generation': generation})
+    return list(map(lambda x: from_bson_to_model(x), bson))
 
 
 def update_score(model_id: str, score):
@@ -43,21 +48,18 @@ def generate_models(num_models: int, specie='a', generation=1) -> List[LearningM
             w_vector = list(i for i in (np.random.uniform(-2, 2, size)).flatten())
             d = random.randrange(-3, 3)
             model = LearningModel(w_vector, d)
-            model.specie = specie
             model.generation = generation
             to_return.append(model)
         elif specie == 'b':
             w_vector = list(i for i in (np.random.uniform(-5, 5, size)).flatten())
             d = random.randrange(-1, 1)
             model = LearningModel(w_vector, d)
-            model.specie = specie
             model.generation = generation
             to_return.append(model)
         elif specie == 'c_rare':
             w_vector = list(i for i in (np.random.uniform(-10, 10, size)).flatten())
             d = random.randrange(-10, 10)
             model = LearningModel(w_vector, d)
-            model.specie = specie
             model.generation = generation
             to_return.append(model)
 
@@ -89,7 +91,7 @@ def test_model(model: LearningModel, enemies_rectangle: List[Rectangle], img_sha
 
     x1 = distance.euclidean(p_bot_left_img, p_top_left) / total_distance
     x2 = distance.euclidean(p_bot_left_img, p_top_right) / total_distance
-    x3 = get_angle(p_bot_left_img, p_bot_left) / 90
+    x3 = (get_angle(p_bot_left_img, p_bot_left) / 90) + 1
 
     x_vector = np.array([[x1, x2, x3]])
     to_return = model.apply(x_vector)

@@ -7,9 +7,9 @@ from service import learning_model_service
 class ModelManagerTest(unittest.TestCase):
     def test_generate_models(self):
         models = []
-        models = models + learning_model_service.generate_models(60, 'a')
-        models = models + learning_model_service.generate_models(50, 'b')
-        models = models + learning_model_service.generate_models(30, 'c_rare')
+        models = models + learning_model_service.generate_models(200, 'a')
+        models = models + learning_model_service.generate_models(100, 'b')
+        models = models + learning_model_service.generate_models(50, 'c_rare')
 
         learning_model_service.insert_many(models)
 

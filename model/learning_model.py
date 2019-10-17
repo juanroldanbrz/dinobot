@@ -12,7 +12,6 @@ class LearningModel:
         self.score = None
         self.processed = False
 
-        self.specie = None
         self.generation = None
 
     def apply(self, x_vector: [float]):
@@ -23,3 +22,10 @@ class LearningModel:
         average = np.sum(product, axis=1) / x_vector.shape[1]
         return np.tan(average).ravel()
 
+    def __hash__(self):
+        return hash((str(self.w_vector), self.d))
+
+    def __eq__(self, other):
+        if not isinstance(other, type(self)):
+            return NotImplemented
+        return self.w_vector == other.w_vector and self.d == other.d

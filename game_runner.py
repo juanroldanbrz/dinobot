@@ -25,7 +25,7 @@ while True:
 
     # Detect enemies
     enemies, _ = enemy_detector.find_enemies(utils.to_gray(img_np))
-    status = f'{game_runner.status} - w:{model.w_vector}, d:{model.d}, specie:{model.specie}'
+    status = f'{game_runner.status} - w:{model.w_vector}, d:{model.d}'
 
     game_runner.play(enemies, enemy_segment_template.shape())
     game_status_str = game_status.get_game_status(utils.to_gray(img_np))

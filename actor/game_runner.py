@@ -21,8 +21,8 @@ class GameRunner:
         self.end_time = None
 
     def start(self):
-        print('Starting game in 5...')
-        time.sleep(5)
+        print('Starting game in 3...')
+        time.sleep(3)
         self.start_time = time.time()
         pyautogui.press(INIT_KEY)
         self.status = 'playing'
