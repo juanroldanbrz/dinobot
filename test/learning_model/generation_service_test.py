@@ -8,4 +8,4 @@ class GenerationServiceTest(unittest.TestCase):
         generation_service.create_generation_report(2)
 
     def test_reproduce_generation(self):
-        generation_service.reproduce_generation(1)
+        generation_service.reproduce_generation(4)

@@ -1,5 +1,6 @@
 from time import sleep
 
+import uuid
 import cv2
 import numpy as np
 import pyscreenshot as ImageGrab
@@ -27,8 +28,12 @@ while True:
     full_gray_np = utils.to_gray(img_np)
 
     # Detect enemies
-    enemies, _ = enemy_detector.find_enemies(utils.to_gray(img_np))
-    status = f'{game_runner.status} - w:{model.w_vector}, d:{model.d}'
+    phase = game_status.get_phase(full_gray_np)
+    if phase == 2:
+        print('Phase 2')
+        cv2.imwrite(f'snapshots/phase2/{uuid.uuid4()}.png', img_np)
+
+    enemies, _ = enemy_detector.find_enemies(utils.to_gray(img_np), phase)
 
     game_runner.play(enemies, enemy_segment_template.shape())
     game_status_str = game_status.get_game_status(utils.to_gray(img_np))

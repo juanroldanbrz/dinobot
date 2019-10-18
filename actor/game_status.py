@@ -1,7 +1,7 @@
 import cv2
 
 from model.actor import Actor
-from template.template import screen_template, game_over_template
+from template.template import screen_template, game_over_template, phase_recognition_template
 from utils import utils
 from utils.assertions import assert_rectangle_shape, assert_gray_img
 
@@ -17,6 +17,20 @@ def _find_rectangle(gray_np, expected_area: ()) -> bool:
         if expected_area[0] < area < expected_area[1]:
             return True
     return False
+
+
+def get_phase(full_gray_np) -> int:
+    assert_rectangle_shape(full_gray_np, screen_template, f'Shape of the image should be {screen_template.shape()}')
+    assert_gray_img(full_gray_np)
+    roi_gray_np = utils.crop_image(full_gray_np, phase_recognition_template)
+
+    flat_pixels = roi_gray_np.ravel()
+    all_pixels_average = sum(flat_pixels) / len(flat_pixels)
+    if all_pixels_average > 240:
+        # Phase 1
+        return 1
+    else:
+        return 2
 
 
 def get_game_status(full_gray_np) -> str:

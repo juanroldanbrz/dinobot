@@ -16,11 +16,12 @@ def reproduce_generation(gen_number: int):
 
     last_generation = learning_model_service.find_all(processed=True, generation=gen_number)
     last_generation.sort(key=lambda x: x.score, reverse=True)
-    top_10 = last_generation[:10]
+    best_models = last_generation[:10]
+    to_return += copy.deepcopy(best_models)
 
-    to_return += copy.deepcopy(top_10)
-    to_return += _reproduce(top_10)
-    to_return += _mutate(top_10)
+    to_return += copy.deepcopy(best_models)
+    # to_return += _reproduce(best_models)
+    to_return += _mutate(best_models, gen=gen_number)
 
     for model in to_return:
         model.generation = next_gen
@@ -35,18 +36,27 @@ def reproduce_generation(gen_number: int):
     learning_model_service.insert_many(to_return)
 
 
-def _mutate(models: List[LearningModel]):
+def _mutate(models: List[LearningModel], gen):
     to_return = []
 
     for model in models:
-        big_variation = _mutate_values(model, -0.8, 0.8)
-        half = _mutate_values(model, -0.5, 0.5)
-        quarter = _mutate_values(model, -0.25, 0.25)
-        low = _mutate_values(model, -0.10, 0.10)
-        to_return.append(half)
-        to_return.append(quarter)
-        to_return.append(low)
-        to_return.append(big_variation)
+        if gen <= 3:
+            big_variation = _mutate_values(model, -0.8, 0.8)
+            half = _mutate_values(model, -0.5, 0.5)
+            quarter = _mutate_values(model, -0.25, 0.25)
+            low = _mutate_values(model, -0.10, 0.10)
+            to_return.append(half)
+            to_return.append(quarter)
+            to_return.append(low)
+            to_return.append(big_variation)
+        else:
+            for i in range(1, 4):
+                to_return.append(_mutate_values(model, -1, 1))
+                to_return.append(_mutate_values(model, -0.25, 0.25))
+                to_return.append(_mutate_values(model, -0.10, 0.10))
+
+            to_return.append(_mutate_values(model, -3.25, 3.25))
+
     return to_return
 
 

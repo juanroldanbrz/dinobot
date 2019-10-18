@@ -9,13 +9,20 @@ from utils import utils
 from utils.assertions import assert_rectangle_shape, assert_gray_img
 
 
-def find_enemies(full_gray_np) -> Tuple[List[Rectangle], Any]:
+def find_enemies(full_gray_np, game_phase=1) -> Tuple[List[Rectangle], Any]:
     # Assert
     assert_rectangle_shape(full_gray_np, screen_template, f'Shape of the image should be {screen_template.shape()}')
     assert_gray_img(full_gray_np)
 
     roi_gray_np = utils.crop_image(full_gray_np, enemy_segment_template)
-    _, mask = cv2.threshold(roi_gray_np, 200, 240, cv2.THRESH_BINARY_INV)
+
+    mask = None
+
+    if game_phase == 1:
+        _, mask = cv2.threshold(roi_gray_np, 200, 240, cv2.THRESH_BINARY_INV)
+    elif game_phase == 2:
+        _, mask = cv2.threshold(full_gray_np, 150, 255, cv2.THRESH_BINARY_INV)
+        mask = cv2.bitwise_not(mask)
 
     kernel = np.ones((3, 10), np.uint8)
     dilation = cv2.dilate(mask, kernel)
