@@ -8,6 +8,34 @@ from utils import utils
 
 
 class EnemyDetectorActorTest(unittest.TestCase):
+    def test_detect_enemy_phase_2(self):
+        img = cv2.imread('../snapshots/phase2/enemy/enemy1.png')
+        img_np = np.array(img)
+        gray = utils.to_gray(img_np)
+        enemies, _ = enemy_detector.find_enemies(gray, 2)
+        self.assertEqual(1, len(enemies))
+
+    def test_detect_enemy_phase_2_3(self):
+        img = cv2.imread('../snapshots/phase2/enemy/enemy_3.png')
+        img_np = np.array(img)
+        gray = utils.to_gray(img_np)
+        enemies, _ = enemy_detector.find_enemies(gray, 2)
+        self.assertEqual(1, len(enemies))
+
+    def test_detect_enemy_phase_2_2(self):
+        img = cv2.imread('../snapshots/phase2/enemy/enemy2.png')
+        img_np = np.array(img)
+        gray = utils.to_gray(img_np)
+        enemies, _ = enemy_detector.find_enemies(gray, 2)
+        self.assertEqual(1, len(enemies))
+
+    def test_detect_enemy_phase_2_1(self):
+        img = cv2.imread('../snapshots/phase2/enemy/enemy1.png')
+        img_np = np.array(img)
+        gray = utils.to_gray(img_np)
+        enemies, _ = enemy_detector.find_enemies(gray, 2)
+        self.assertEqual(1, len(enemies))
+
     def test_detect_enemy_2(self):
         img = cv2.imread('../snapshots/enemy/enemies_2_full.png')
         img_np = np.array(img)

@@ -26,7 +26,7 @@ def get_phase(full_gray_np) -> int:
 
     flat_pixels = roi_gray_np.ravel()
     all_pixels_average = sum(flat_pixels) / len(flat_pixels)
-    if all_pixels_average > 240:
+    if all_pixels_average > 150:
         # Phase 1
         return 1
     else:

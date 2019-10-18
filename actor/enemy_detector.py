@@ -21,7 +21,7 @@ def find_enemies(full_gray_np, game_phase=1) -> Tuple[List[Rectangle], Any]:
     if game_phase == 1:
         _, mask = cv2.threshold(roi_gray_np, 200, 240, cv2.THRESH_BINARY_INV)
     elif game_phase == 2:
-        _, mask = cv2.threshold(full_gray_np, 150, 255, cv2.THRESH_BINARY_INV)
+        _, mask = cv2.threshold(roi_gray_np, 150, 255, cv2.THRESH_BINARY_INV)
         mask = cv2.bitwise_not(mask)
 
     kernel = np.ones((3, 10), np.uint8)
@@ -31,6 +31,7 @@ def find_enemies(full_gray_np, game_phase=1) -> Tuple[List[Rectangle], Any]:
 
     to_return = list()
     for cnt in contours:
+
         x, y, w, h = cv2.boundingRect(cnt)
         if h < 8:
             continue

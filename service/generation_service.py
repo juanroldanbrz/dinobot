@@ -18,8 +18,6 @@ def reproduce_generation(gen_number: int):
     last_generation.sort(key=lambda x: x.score, reverse=True)
     best_models = last_generation[:10]
     to_return += copy.deepcopy(best_models)
-
-    to_return += copy.deepcopy(best_models)
     # to_return += _reproduce(best_models)
     to_return += _mutate(best_models, gen=gen_number)
 

@@ -29,10 +29,6 @@ while True:
 
     # Detect enemies
     phase = game_status.get_phase(full_gray_np)
-    if phase == 2:
-        print('Phase 2')
-        cv2.imwrite(f'snapshots/phase2/{uuid.uuid4()}.png', img_np)
-
     enemies, _ = enemy_detector.find_enemies(utils.to_gray(img_np), phase)
 
     game_runner.play(enemies, enemy_segment_template.shape())
