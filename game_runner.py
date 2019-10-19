@@ -20,6 +20,7 @@ game_runner = GameRunner(model)
 print(f'Loading model: {model.model_id}')
 game_runner.start()
 
+i = 0
 while True:
     img = ImageGrab.grab(bbox=screen_template.to_tuple(), childprocess=False)
     img_np = np.array(img)
@@ -29,6 +30,11 @@ while True:
 
     # Detect enemies
     phase = game_status.get_phase(full_gray_np)
+
+    if phase == 2:
+        cv2.imwrite(f'save/{i}.png', full_gray_np)
+        i = i + 1
+
     enemies, _ = enemy_detector.find_enemies(utils.to_gray(img_np), phase)
 
     game_runner.play(enemies, enemy_segment_template.shape())
@@ -48,7 +54,6 @@ while True:
             generation_service.create_generation_report(generation)
             generation_service.reproduce_generation(generation)
             generation = generation + 1
-            exit(0)
 
         model = learning_model_service.find_one(processed=False, generation=generation)
         game_runner = GameRunner(model)
