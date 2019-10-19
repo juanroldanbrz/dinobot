@@ -7,7 +7,7 @@ from component import game_status
 from utils import utils
 
 
-class GameStatusActorTest(unittest.TestCase):
+class GameStatusTest(unittest.TestCase):
     def test_game_phase_1(self):
         img = cv2.imread('../snapshots/game_playing.png')
         img_np = np.array(img)

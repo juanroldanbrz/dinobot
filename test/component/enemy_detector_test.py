@@ -7,7 +7,7 @@ from component import enemy_detector, game_status
 from utils import utils
 
 
-class EnemyDetectorActorTest(unittest.TestCase):
+class EnemyDetectorTest(unittest.TestCase):
     ## Complicated
     def test_detect_enemy_complicated_cactus_3(self):
         img = cv2.imread(f'../snapshots/complicated/cactus3.png')
