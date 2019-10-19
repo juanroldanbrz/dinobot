@@ -1,4 +1,4 @@
-from time import sleep
+from time import sleep, time
 
 import uuid
 import cv2
@@ -20,6 +20,7 @@ game_runner = GameRunner(model)
 print(f'Loading model: {model.model_id}')
 game_runner.start()
 
+phase = 1
 i = 0
 while True:
     img = ImageGrab.grab(bbox=screen_template.to_tuple(), childprocess=False)
@@ -31,9 +32,12 @@ while True:
     # Detect enemies
     phase = game_status.get_phase(full_gray_np)
 
-    if phase == 2:
-        cv2.imwrite(f'save/{i}.png', full_gray_np)
-        i = i + 1
+    # now = time()
+    #
+    # if now - start_time > 55:
+    #     print('Printing snapshot')
+    #     cv2.imwrite(f'save/{i}.png', full_gray_np)
+    #     i += 1
 
     enemies, _ = enemy_detector.find_enemies(utils.to_gray(img_np), phase)
 
@@ -42,6 +46,7 @@ while True:
 
     if game_status_str == 'game_over':
         game_runner.terminate()
+
         print(f'elapsed: {game_runner.get_score()}')
         print(f'{learning_model_service.count_non_processed(generation)} '
               f'remaining models from {generation} generation')

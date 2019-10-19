@@ -9,8 +9,16 @@ from utils import utils
 
 class EnemyDetectorActorTest(unittest.TestCase):
     ## Complicated
+    def test_detect_enemy_complicated_cactus_3(self):
+        img = cv2.imread(f'../snapshots/complicated/cactus3.png')
+        img_np = np.array(img)
+        gray = utils.to_gray(img_np)
+        phase = game_status.get_phase(gray)
+        enemies, _ = enemy_detector.find_enemies(gray, phase)
+        self.assertEqual(1, len(enemies))
+
     def test_detect_enemy_complicated_1(self):
-        enemy_files = ['bird.png', 'bird2.png', 'bird3.png', 'bird4.png', 'cactus.png']
+        enemy_files = ['bird.png', 'bird2.png', 'bird3.png', 'bird4.png', 'cactus.png', 'cactus2.png']
 
         for enemy_file in enemy_files:
             img = cv2.imread(f'../snapshots/complicated/{enemy_file}')

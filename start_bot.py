@@ -6,6 +6,7 @@ from actor import enemy_detector, dino_detector_actor, game_status
 from template.template import screen_template, enemy_segment_template
 from utils import utils
 
+
 while True:
 
     print('loop')

@@ -20,7 +20,7 @@ def find_enemies(full_gray_np, game_phase=1) -> Tuple[List[Rectangle], Any]:
     if game_phase == 2:
         roi_gray_np = cv2.bitwise_not(roi_gray_np)
 
-    _, mask = cv2.threshold(roi_gray_np, 200, 240, cv2.THRESH_BINARY_INV)
+    _, mask = cv2.threshold(roi_gray_np, 150, 240, cv2.THRESH_BINARY_INV)
 
     kernel = np.ones((3, 10), np.uint8)
     dilation = cv2.dilate(mask, kernel)
