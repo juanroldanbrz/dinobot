@@ -3,7 +3,7 @@ import unittest
 import cv2
 import numpy as np
 
-from actor import game_status
+from component import game_status
 from utils import utils
 
 

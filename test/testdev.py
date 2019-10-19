@@ -1,6 +1,3 @@
-import cv2
-import numpy as np
-
 from utils import utils
 
 utils.snapshot_to_file('enemies_4.png')

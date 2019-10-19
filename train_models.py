@@ -1,14 +1,14 @@
-import numpy as np
 import cv2
+import numpy as np
 import pyscreenshot as ImageGrab
 
-from actor.dino_detector_actor import DinoDetectorActor
-from actor.enemy_detector import EnemyDetectorActor
-from actor.game_simulation import GameSimulation
-from actor.game_status import GameStatusActor
-from service import model_manager
+from component.dino_detector import DinoDetectorActor
+from component.enemy_detector import EnemyDetectorActor
+from component.game_simulation import GameSimulation
+from component.game_status import GameStatusActor
 from model.message import Message
-from template.template import screen_template, enemy_segment_template
+from service import model_manager
+from template.template import screen_template
 from utils import utils
 
 game_status_actor = GameStatusActor()

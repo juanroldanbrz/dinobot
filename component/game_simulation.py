@@ -1,6 +1,6 @@
 import time
 
-from actor import game_status, enemy_detector
+from component import game_status, enemy_detector
 from model.learning_model import LearningModel
 from service import learning_model_service
 

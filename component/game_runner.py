@@ -2,7 +2,6 @@ import time
 
 import pyautogui
 
-from actor.game_simulation import GameSimulation
 from model.learning_model import LearningModel
 from model.rectangle import Rectangle
 from service import learning_model_service

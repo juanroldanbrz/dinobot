@@ -2,10 +2,9 @@ import cv2
 import numpy as np
 import pyscreenshot as ImageGrab
 
-from actor import enemy_detector, dino_detector_actor, game_status
+from component import enemy_detector, dino_detector, game_status
 from template.template import screen_template, enemy_segment_template
 from utils import utils
-
 
 while True:
 
@@ -17,7 +16,7 @@ while True:
 
     # Detect enemies
     enemies, _ = enemy_detector.find_enemies(utils.to_gray(img_np))
-    dino = dino_detector_actor.find_dino(utils.to_gray(img_np))
+    dino = dino_detector.find_dino(utils.to_gray(img_np))
     status = game_status.get_game_status(utils.to_gray(img_np))
 
     cv2.putText(img_np, status, (10, 10), cv2.FONT_HERSHEY_SIMPLEX, 0.5, 255)

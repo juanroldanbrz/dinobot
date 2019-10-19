@@ -1,6 +1,5 @@
 import cv2
 
-from model.actor import Actor
 from template.template import screen_template, game_over_template, phase_recognition_template
 from utils import utils
 from utils.assertions import assert_rectangle_shape, assert_gray_img

@@ -1,9 +1,9 @@
-import numpy as np
 import cv2
+import numpy as np
 import pyscreenshot as ImageGrab
 
 from model.rectangle import Rectangle
-from template.template import screen_template, game_over_template
+from template.template import screen_template
 
 
 def snapshot_to_file(file_name):

@@ -1,12 +1,8 @@
-from time import sleep, time
-
-import uuid
-import cv2
 import numpy as np
 import pyscreenshot as ImageGrab
 
-from actor import enemy_detector, dino_detector_actor, game_status
-from actor.game_runner import GameRunner
+from component import enemy_detector, game_status
+from component.game_runner import GameRunner
 from service import learning_model_service, generation_service
 from service.learning_model_service import update_score
 from template.template import screen_template, enemy_segment_template

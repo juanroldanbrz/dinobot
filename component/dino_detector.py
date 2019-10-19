@@ -3,9 +3,8 @@ from typing import List
 import cv2
 import numpy as np
 
-from model.actor import Actor
 from model.rectangle import Rectangle
-from template.template import screen_template, enemy_segment_template, dino_segment_template
+from template.template import screen_template, dino_segment_template
 from utils import utils
 from utils.assertions import assert_rectangle_shape, assert_gray_img
 
