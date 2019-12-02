@@ -28,6 +28,6 @@ while True:
         utils.display_rectangle(img_np, dino, 50)
 
     cv2.imshow("frame", img_np)
-    key = cv2.waitKey(0)
+    key = cv2.waitKey(1)
     if key == 27:
         break

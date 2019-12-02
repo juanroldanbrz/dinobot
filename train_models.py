@@ -16,7 +16,7 @@ enemy_detector = EnemyDetectorActor()
 dino_detector = DinoDetectorActor()
 
 model = model_manager.get_next_model('test_model.csv')
-game_actor = GameSimulation(model, game_status_actor)
+game_actor = GameSimulation(model)
 
 while True:
     img = ImageGrab.grab(bbox=screen_template.to_tuple())
